@@ -340,12 +340,12 @@ function getTaskRewards(task) {
         if (error) throw new Error(`接口请求出错 ‼️`);
         const obj = JSON.parse(data)
         if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
-          RewardsMsg = `任务奖励: ${task.name} => ${obj.dataNew[0].name + obj.dataNew[0].value} 🎉`
+          RewardsMsg = `任务有奖励: ${task.name} => ${obj.dataNew[0].name + obj.dataNew[0].value} 🎉`
         } else {
-          RewardsMsg = `任务奖励: ${task.name} => ${obj.msg !== `成功` && obj.msg || `未完成`} ⚠️`
+          RewardsMsg = `任务正常无奖励: ${task.name} => ${obj.msg !== `成功` && obj.msg || `未完成`} ⚠️`
         }
       } catch (e) {
-        RewardsMsg = `任务奖励: ${e.message || e}`;
+        RewardsMsg = `任务异常无奖励: ${e.message || e}`;
       }
       pushMsg.push(RewardsMsg)
       console.log(`爱奇艺-${RewardsMsg} ${Details}`)
