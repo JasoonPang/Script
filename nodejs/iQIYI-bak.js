@@ -27,6 +27,11 @@ JsBox, Node.js用户获取Cookie说明：
 
 var cookie = ''; //单引号内填入手动获取的Cookie
 
+P00001 = cookie.match(/P00001=(.*?);/)[1];
+P00003 = cookie.match(/P00003=(.*?);/)[1];
+DFP = cookie.match(/__dfp=(\w+)/)[1];
+console.log('iQIYI-bak解析的' + P00001 + '|' + P00003 + '|' + DFP)
+
 var barkKey = ''; //Bark APP 通知推送Key
 
 var barkServer = ''; //Bark APP 通知服务端地址(默认官方)
