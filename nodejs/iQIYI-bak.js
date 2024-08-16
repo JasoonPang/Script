@@ -286,14 +286,15 @@ function getTaskList(task) {
             })
           })
           taskListMsg = `获取成功!`;
+          
         } else {
           taskListMsg = `获取失败!`;
         }
       } catch (e) {
         taskListMsg = `${e.message || e} ‼️`;
       }
-      console.log(`爱奇艺-任务列表: ${taskListMsg} ${Details}`)
-      resolve(taskList)
+      console.log(`爱奇艺-任务列表: ${taskListMsg} ${taskList} ${Details}`)
+      resolve(taskList)        
     })
   })
 }
