@@ -235,6 +235,7 @@ function Checkin() {
   })
 }
 
+// 抽奖
 function Lottery(s) {
   return new Promise(resolve => {
     const URL = {
