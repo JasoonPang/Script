@@ -293,7 +293,7 @@ function getTaskList(task) {
       } catch (e) {
         taskListMsg = `${e.message || e} ‼️`;
       }
-      console.log(`爱奇艺-任务列表: ${taskListMsg} ${taskList} ${Details}`)
+      console.log(`爱奇艺-任务列表: ${taskListMsg} ${Details}`)
       resolve(taskList)        
     })
   })
