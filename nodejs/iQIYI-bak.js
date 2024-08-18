@@ -368,7 +368,7 @@ function getTaskRewardsRetry(task, token) {
   return new Promise(resolve => {
     $nobyda.get('https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?taskCode=' + task.taskCode + '&lang=zh_CN&platform=0000000000000000&P00001=' + P00001 + '&token=' + token, function (error, response, data) {
       let RewardsMsg;
-      const Details = LogDetails ? `msg:\n${data || error}` : ''
+      const Details = `msg:\n${data || error}` : ''
       try {
         if (error) throw new Error(`接口请求出错 ‼️`);
         const obj = JSON.parse(data)
@@ -382,7 +382,7 @@ function getTaskRewardsRetry(task, token) {
         RewardsMsg = `任务异常无奖励: ${e.message || e}`;
       }
       pushMsg.push(RewardsMsg)
-      console.log(`爱奇艺-${RewardsMsg} ${data}`)
+      console.log(`爱奇艺-${RewardsMsg} ${Details}`)
       resolve()
     })
   })
