@@ -114,7 +114,10 @@ var $nobyda = nobyda();
           await joinTask(tasks[i]);
           await notifyTask(tasks[i]);
           await new Promise(r => setTimeout(r, 1000));
-          await getTaskRewards(tasks[i]);
+          if (tasks[i].status == 0){
+            await getTaskRewards(tasks[i]);
+            await getTaskRewards(tasks[i]);
+          }
           console.log(`--------------------`)
         }
       }
@@ -337,6 +340,30 @@ function notifyTask(task) {
 }
 
 function getTaskRewards(task) {
+  return new Promise(resolve => {
+    $nobyda.get('https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?taskCode=' + task.taskCode + '&lang=zh_CN&platform=0000000000000000&P00001=' + P00001, function (error, response, data) {
+      let RewardsMsg;
+      const Details = LogDetails ? `msg:\n${data || error}` : ''
+      try {
+        if (error) throw new Error(`接口请求出错 ‼️`);
+        const obj = JSON.parse(data)
+        console.log(`领取奖励的返回值：${JSON.stringify(obj)}`)
+        if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
+          RewardsMsg = `任务有奖励: ${task.name} => ${obj.dataNew[0].name + obj.dataNew[0].value} 🎉`
+        } else {
+          RewardsMsg = `任务正常无奖励: ${task.name} => ${obj.msg !== `成功` && obj.msg || `未完成`} ⚠️`
+        }
+      } catch (e) {
+        RewardsMsg = `任务异常无奖励: ${e.message || e}`;
+      }
+      pushMsg.push(RewardsMsg)
+      console.log(`爱奇艺-${RewardsMsg} ${Details}`)
+      resolve()
+    })
+  })
+}
+
+function getTaskRewardsRetry(task) {
   return new Promise(resolve => {
     $nobyda.get('https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?taskCode=' + task.taskCode + '&lang=zh_CN&platform=0000000000000000&P00001=' + P00001, function (error, response, data) {
       let RewardsMsg;
