@@ -114,10 +114,7 @@ var $nobyda = nobyda();
           await joinTask(tasks[i]);
           await notifyTask(tasks[i]);
           await new Promise(r => setTimeout(r, 1000));
-          if (tasks[i].status == 0){
-            await getTaskRewards(tasks[i]);
-            await getTaskRewards(tasks[i]);
-          }
+          await getTaskRewards(tasks[i]);
           console.log(`--------------------`)
         }
       }
@@ -348,7 +345,8 @@ function getTaskRewards(task) {
         if (error) throw new Error(`接口请求出错 ‼️`);
         const obj = JSON.parse(data)
         console.log(`领取奖励的返回值：${JSON.stringify(obj)}`)
-        if (obj.code == "Q00700"){
+        if (obj.code == "Q00700" && task.status == 0){
+          console.log(`重复领取奖励的返回值：${obj.data.token}`)
           getTaskRewardsRetry(task, obj.data.token)
         }
         else if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
