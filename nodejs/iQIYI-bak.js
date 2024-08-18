@@ -348,7 +348,10 @@ function getTaskRewards(task) {
         if (error) throw new Error(`接口请求出错 ‼️`);
         const obj = JSON.parse(data)
         console.log(`领取奖励的返回值：${JSON.stringify(obj)}`)
-        if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
+        if (obj.code == "Q00700"){
+          getTaskRewardsRetry(task, obj.data.token)
+        }
+        else if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
           RewardsMsg = `任务有奖励: ${task.name} => ${obj.dataNew[0].name + obj.dataNew[0].value} 🎉`
         } else {
           RewardsMsg = `任务正常无奖励: ${task.name} => ${obj.msg !== `成功` && obj.msg || `未完成`} ⚠️`
@@ -363,9 +366,9 @@ function getTaskRewards(task) {
   })
 }
 
-function getTaskRewardsRetry(task) {
+function getTaskRewardsRetry(task, token) {
   return new Promise(resolve => {
-    $nobyda.get('https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?taskCode=' + task.taskCode + '&lang=zh_CN&platform=0000000000000000&P00001=' + P00001, function (error, response, data) {
+    $nobyda.get('https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?taskCode=' + task.taskCode + '&lang=zh_CN&platform=0000000000000000&P00001=' + P00001 + '&token=' + token, function (error, response, data) {
       let RewardsMsg;
       const Details = LogDetails ? `msg:\n${data || error}` : ''
       try {
