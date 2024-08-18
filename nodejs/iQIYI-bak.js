@@ -325,7 +325,7 @@ function notifyTask(task) {
       try {
         if (error) throw new Error(`请求失败`);
         const obj = JSON.parse(data);
-        console.log(`开始任务的返回值：${obj}`)
+        console.log(`开始任务的返回值：${JSON.stringify(obj)}`)
         notifyTaskMsg = obj.code || '失败';
       } catch (e) {
         notifyTaskMsg = e.message || e;
@@ -344,7 +344,7 @@ function getTaskRewards(task) {
       try {
         if (error) throw new Error(`接口请求出错 ‼️`);
         const obj = JSON.parse(data)
-        console.log(`领取奖励的返回值：${obj}`)
+        console.log(`领取奖励的返回值：${JSON.stringify(obj)}`)
         if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
           RewardsMsg = `任务有奖励: ${task.name} => ${obj.dataNew[0].name + obj.dataNew[0].value} 🎉`
         } else {
