@@ -382,7 +382,7 @@ function getTaskRewardsRetry(task, token) {
         RewardsMsg = `任务异常无奖励: ${e.message || e}`;
       }
       pushMsg.push(RewardsMsg)
-      console.log(`爱奇艺-${RewardsMsg} ${Details}`)
+      console.log(`爱奇艺-${RewardsMsg} ${data}`)
       resolve()
     })
   })
