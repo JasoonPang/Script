@@ -346,7 +346,7 @@ function getTaskRewards(task) {
         const obj = JSON.parse(data)
         console.log(`领取奖励的返回值：${JSON.stringify(obj)}`)
         if (obj.code == "Q00700" && task.status == 0){
-          console.log(`重复领取奖励的返回值：${obj.data.token}`)
+          console.log(`重试领取奖励的返回值：${obj.data.token}`)
           getTaskRewardsRetry(task, obj.data.token)
         }
         else if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
@@ -372,17 +372,17 @@ function getTaskRewardsRetry(task, token) {
       try {
         if (error) throw new Error(`接口请求出错 ‼️`);
         const obj = JSON.parse(data)
-        console.log(`领取奖励的返回值：${JSON.stringify(obj)}`)
+        console.log(`重试领取奖励的返回值：${JSON.stringify(obj)}`)
         if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
-          RewardsMsg = `任务有奖励: ${task.name} => ${obj.dataNew[0].name + obj.dataNew[0].value} 🎉`
+          RewardsMsg = `重试任务有奖励: ${task.name} => ${obj.dataNew[0].name + obj.dataNew[0].value} 🎉`
         } else {
-          RewardsMsg = `任务正常无奖励: ${task.name} => ${obj.msg !== `成功` && obj.msg || `未完成`} ⚠️`
+          RewardsMsg = `重试任务正常无奖励: ${task.name} => ${obj.msg !== `成功` && obj.msg || `未完成`} ⚠️`
         }
       } catch (e) {
-        RewardsMsg = `任务异常无奖励: ${e.message || e}`;
+        RewardsMsg = `重试任务异常无奖励: ${e.message || e}`;
       }
       pushMsg.push(RewardsMsg)
-      console.log(`爱奇艺领取奖励-${RewardsMsg} ${Details}`)
+      console.log(`重试爱奇艺领取奖励-${RewardsMsg} ${Details}`)
       resolve()
     })
   })
