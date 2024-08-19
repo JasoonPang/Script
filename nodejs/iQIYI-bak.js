@@ -365,7 +365,7 @@ function getTaskRewards(task) {
 
 function getTaskRewardsRetry(task, token) {
   return new Promise(resolve => {
-    $nobyda.get('https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?taskCode=' + task.taskCode + '&lang=zh_CN&platform=0000000000000000&P00001=' + P00001 + '&token=' + token, function (error, response, data) {
+    $nobyda.get('https://tc.vip.iqiyi.com/taskCenter/task/getTaskRewards?taskCode=' + task.taskCode + '&lang=zh_CN&platform=0000000000000000&P00001=' + P00001 + '&Authorization=' + token, function (error, response, data) {
       let RewardsMsg = '';
       const Details = `msg:\n${data || error}`
       try {
