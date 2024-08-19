@@ -344,7 +344,7 @@ function getTaskRewards(task) {
       try {
         if (error) throw new Error(`接口请求出错 ‼️`);
         const obj = JSON.parse(data)
-        console.log(`领取奖励的返回值：${JSON.stringify(obj)}`)
+        console.log(`领取奖励的返回值：${JSON.stringify(task)} ${JSON.stringify(obj)}`)
         if (obj.code == "Q00700" && task.status == 0){
           getTaskRewardsRetry(task, obj.data.token)
         }
