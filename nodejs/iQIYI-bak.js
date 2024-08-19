@@ -346,6 +346,7 @@ function getTaskRewards(task) {
         const obj = JSON.parse(data)
         console.log(`领取奖励的返回值：${JSON.stringify(task)} ${JSON.stringify(obj)}`)
         if (obj.code == "Q00700" && task.status == 0){
+          console.log(`重试领取奖励******************`)
           getTaskRewardsRetry(task, obj.data.token)
         }
         else if (obj.msg === "成功" && obj.code === "A00000" && obj.dataNew[0] !== undefined) {
