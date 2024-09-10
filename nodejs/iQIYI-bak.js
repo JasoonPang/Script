@@ -110,7 +110,7 @@ var $nobyda = nobyda();
       for (let i = 0; i < tasks.length; i++) {
         console.log('任务状态：' + tasks[i].name + ':' + tasks[i].status + ':' + tasks[i].taskCode)
         if (![1, 4].includes(tasks[i].status)) { //0：待领取 1：已完成 2：未开始 4：进行中
-          if(['观看视频30分钟', '开通自动续费'].includes(tasks[i].name)) continue
+          if(['开通自动续费'].includes(tasks[i].name)) continue
           await joinTask(tasks[i]);
           await notifyTask(tasks[i]);
           await new Promise(r => setTimeout(r, 1000));
